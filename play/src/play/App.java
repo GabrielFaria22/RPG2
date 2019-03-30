@@ -7,9 +7,14 @@ import play.Char;
 public class App {
 	public static void main(String[]Args) {
 		
+		
+		//carregando mapa
+		Mapa map=new Mapa();
+		
+		
 		Scanner leitor=new Scanner(System.in);
 		int ptsatributos=10,repet=0;
-		Char novop=new Char(null, 0, 0, 0);
+		Char novop=new Char();
 		String nome=new String();
 		int forca = 0,destreza=0,inteligencia=0;
 		System.out.println("crie seu personagem");
