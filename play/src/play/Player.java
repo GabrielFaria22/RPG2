@@ -1,5 +1,4 @@
 package play;
-import play.Inimigo;
 
 public class Player extends Char{
 	
