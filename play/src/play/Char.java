@@ -7,7 +7,7 @@ import play.Item;
 public class Char {
 	Scanner leitor = new Scanner(System.in);
 	public String nome = new String();
-	public double forca, destreza, inteligencia, hp = 10, valorataque, valordefesa;
+	public double forca, destreza, inteligencia, hp = 10, valorataque, valordefesa,iniciativa;
 	public boolean vivo;
 
 	public Char() {
@@ -66,23 +66,58 @@ public class Char {
 
 	}
 
-	public void luta(Char i) {
-
-		System.out.println(this.nome + " vai atacar!");
+	public void luta(Char i) throws InterruptedException {
+		
+		this.iniciativa=destreza+inteligencia/2;
+		i.iniciativa=i.destreza+i.inteligencia/2;
 		valorataque = (forca + destreza) / 2;
 		valordefesa = (forca + destreza) / 4;
 		i.valorataque = (forca + destreza) / 2;
 		i.valordefesa = (forca + destreza) / 4;
+		
+		
+		if(this.iniciativa>=i.iniciativa) {
+			while(this.hp>0&&i.hp>0) {
+				System.out.println(this.nome + " vai atacar!");
+				Thread.sleep(2000);
+				ataca(i, valorataque);
+				
+				Thread.sleep(2000);
+				System.out.println(i.nome + " vai atacar!");
+				Thread.sleep(2000);
+				i.ataca(this, i.valorataque);
+				
+				Thread.sleep(2000);
+			}
+			
+		}else {
+			while(this.hp>0&&i.hp>0) {
+				System.out.println(i.nome + " vai atacar!");
+				i.ataca(this, i.valorataque);
+				
+				System.out.println(this.nome + " vai atacar!");
+				ataca(i, valorataque);
+				
+			}
+			
+		}
+		
+		if(this.hp<=0) {
+			System.out.println(this.nome+" morreu!");
+		}else if(i.hp<=0) {
+			System.out.println(i.nome+" morreu!");
+		}
 
-		ataca(i, valorataque);
-		System.out.println(this.nome + " atacou causando " + valorataque + " de dano!asd");
 		
 
+		
+		
 	}
 
 	public void ataca(Char i, double valorataque) {
 
 		i.hp = i.hp - (this.valorataque - i.valordefesa);
+		System.out.println(this.nome + " atacou causando " + (this.valorataque - i.valordefesa) + " de dano!");
 
 	}
 
