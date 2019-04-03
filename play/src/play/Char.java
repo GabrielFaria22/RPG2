@@ -1,6 +1,7 @@
 package play;
 
 import play.Item;
+import Mapa.Map;
 import java.util.Scanner;
 import play.Item;
 
@@ -9,6 +10,7 @@ public class Char {
 	public String nome = new String();
 	public double forca, destreza, inteligencia, hp = 10, valorataque, valordefesa,iniciativa;
 	public boolean vivo;
+	public int posicao[][];
 
 	public Char() {
 		this.nome = nome;
@@ -16,6 +18,9 @@ public class Char {
 		this.destreza = destreza;
 		this.inteligencia = inteligencia;
 		this.hp = hp;
+		this.valorataque=valorataque;
+		this.valordefesa=valordefesa;
+		this.iniciativa=iniciativa;
 
 	}
 
@@ -26,6 +31,9 @@ public class Char {
 		System.out.println("destreza: " + this.destreza);
 		System.out.println("inteligencia: " + this.inteligencia);
 		System.out.println("HP: " + this.hp);
+		System.out.println("Ataque: " + this.valorataque);//vai printar 0 pois so e calculado ao lutar
+		System.out.println("Defesa: " + this.valordefesa);//vai printar 0 pois so e calculado ao lutar
+		System.out.println("Iniciativa: " + this.iniciativa);//vai printar 0 pois so e calculado ao lutar
 
 	}
 
@@ -72,7 +80,7 @@ public class Char {
 		i.iniciativa=i.destreza+i.inteligencia/2;
 		valorataque = (forca + destreza) / 2;
 		valordefesa = (forca + destreza) / 4;
-		i.valorataque = (forca + destreza) / 2;
+		i.valorataque = (i.forca + i.destreza) / 2;
 		i.valordefesa = (forca + destreza) / 4;
 		
 		
@@ -109,16 +117,53 @@ public class Char {
 		}
 
 		
-
-		
 		
 	}
 
 	public void ataca(Char i, double valorataque) {
+		double valordano=this.valorataque - i.valordefesa;
 
-		i.hp = i.hp - (this.valorataque - i.valordefesa);
-		System.out.println(this.nome + " atacou causando " + (this.valorataque - i.valordefesa) + " de dano!");
+		i.hp = i.hp - (valordano);
+		System.out.println(this.nome + "HP: "+this.hp +" atacou causando " + valordano + " de dano!");
+		
 
 	}
 
+	public void anda() {
+		int direcao;
+		boolean tentenovamente=true;
+		System.out.println("Qual direcao voce deseja viajar?");
+		System.out.println("1 - Norte");
+		System.out.println("2 - Sul");
+		System.out.println("3 - Leste");
+		System.out.println("4 - Oeste");
+		direcao=leitor.nextInt();
+		while(tentenovamente==true) {
+			switch(direcao) {
+			case 1:
+				System.out.println("1 - Norte");
+				tentenovamente=false;
+				break;
+			case 2:
+				System.out.println("2 - Sul");
+				tentenovamente=false;
+				break;
+			case 3:
+				System.out.println("3 - Leste");
+				tentenovamente=false;
+				break;
+			case 4:
+				System.out.println("4 - Oeste");
+				tentenovamente=false;
+				break;
+				default:
+					System.out.println("comando nao reconhecido, tente novamnete");
+			}
+			
+		}
+		
+		
+		
+	}
+	
 }

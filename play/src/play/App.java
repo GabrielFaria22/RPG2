@@ -22,7 +22,8 @@ public class App {
 		
 		player.luta(bandido1);
 		Thread.sleep(1000);
-		bandido1.fichadopersonagem();
+		
+		player.anda();
 
 	}
 }

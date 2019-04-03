@@ -1,6 +1,6 @@
 package Mapa;
 
-public class Floresta {
+public class Floresta extends Map{
 	
 	
 
