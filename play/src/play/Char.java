@@ -8,9 +8,11 @@ import play.Item;
 public class Char {
 	Scanner leitor = new Scanner(System.in);
 	public String nome = new String();
-	public double forca, destreza, inteligencia, hp = 10, valorataque, valordefesa,iniciativa;
+	public double forca, destreza, inteligencia, hp = 10, valorataque, valordefesa, iniciativa;
 	public boolean vivo;
-	public int posicao[][];
+	public int posicaox=0,posicaoy=0;
+	
+	
 
 	public Char() {
 		this.nome = nome;
@@ -18,9 +20,9 @@ public class Char {
 		this.destreza = destreza;
 		this.inteligencia = inteligencia;
 		this.hp = hp;
-		this.valorataque=valorataque;
-		this.valordefesa=valordefesa;
-		this.iniciativa=iniciativa;
+		this.valorataque = valorataque;
+		this.valordefesa = valordefesa;
+		this.iniciativa = iniciativa;
 
 	}
 
@@ -31,9 +33,9 @@ public class Char {
 		System.out.println("destreza: " + this.destreza);
 		System.out.println("inteligencia: " + this.inteligencia);
 		System.out.println("HP: " + this.hp);
-		System.out.println("Ataque: " + this.valorataque);//vai printar 0 pois so e calculado ao lutar
-		System.out.println("Defesa: " + this.valordefesa);//vai printar 0 pois so e calculado ao lutar
-		System.out.println("Iniciativa: " + this.iniciativa);//vai printar 0 pois so e calculado ao lutar
+		System.out.println("Ataque: " + this.valorataque);// vai printar 0 pois so e calculado ao lutar
+		System.out.println("Defesa: " + this.valordefesa);// vai printar 0 pois so e calculado ao lutar
+		System.out.println("Iniciativa: " + this.iniciativa);// vai printar 0 pois so e calculado ao lutar
 
 	}
 
@@ -75,92 +77,117 @@ public class Char {
 	}
 
 	public void luta(Char i) throws InterruptedException {
-		
-		this.iniciativa=destreza+inteligencia/2;
-		i.iniciativa=i.destreza+i.inteligencia/2;
+
+		this.iniciativa = destreza + inteligencia / 2;
+		i.iniciativa = i.destreza + i.inteligencia / 2;
 		valorataque = (forca + destreza) / 2;
 		valordefesa = (forca + destreza) / 4;
 		i.valorataque = (i.forca + i.destreza) / 2;
 		i.valordefesa = (forca + destreza) / 4;
-		
-		
-		if(this.iniciativa>=i.iniciativa) {
-			while(this.hp>0&&i.hp>0) {
+
+		if (this.iniciativa >= i.iniciativa) {
+			while (this.hp > 0 && i.hp > 0) {
 				System.out.println(this.nome + " vai atacar!");
 				Thread.sleep(2000);
 				ataca(i, valorataque);
-				
+
 				Thread.sleep(2000);
 				System.out.println(i.nome + " vai atacar!");
 				Thread.sleep(2000);
 				i.ataca(this, i.valorataque);
-				
+
 				Thread.sleep(2000);
 			}
-			
-		}else {
-			while(this.hp>0&&i.hp>0) {
+
+		} else {
+			while (this.hp > 0 && i.hp > 0) {
 				System.out.println(i.nome + " vai atacar!");
 				i.ataca(this, i.valorataque);
-				
+
 				System.out.println(this.nome + " vai atacar!");
 				ataca(i, valorataque);
-				
+
 			}
-			
-		}
-		
-		if(this.hp<=0) {
-			System.out.println(this.nome+" morreu!");
-		}else if(i.hp<=0) {
-			System.out.println(i.nome+" morreu!");
+
 		}
 
-		
-		
+		if (this.hp <= 0) {
+			System.out.println(this.nome + " morreu!");
+		} else if (i.hp <= 0) {
+			System.out.println(i.nome + " morreu!");
+		}
+
 	}
 
 	public void ataca(Char i, double valorataque) {
-		double valordano=this.valorataque - i.valordefesa;
+		double valordano = this.valorataque - i.valordefesa;
 
 		i.hp = i.hp - (valordano);
-		System.out.println(this.nome + "HP: "+this.hp +" atacou causando " + valordano + " de dano!");
-		
+		System.out.println(this.nome + "HP: " + this.hp + " atacou causando " + valordano + " de dano!");
 
 	}
 
 	public void anda() {
 		int direcao;
-		boolean tentenovamente=true;
-		System.out.println("Qual direcao voce deseja viajar?");
-		System.out.println("1 - Norte");
-		System.out.println("2 - Sul");
-		System.out.println("3 - Leste");
-		System.out.println("4 - Oeste");
-		direcao=leitor.nextInt();
-		while(tentenovamente==true) {
-			switch(direcao) {
+		boolean tentenovamente = true;
+
+		while (tentenovamente == true) {
+			System.out.println("Qual direcao voce deseja viajar?");
+			System.out.println("1 - Norte");
+			System.out.println("2 - Sul");
+			System.out.println("3 - Leste");
+			System.out.println("4 - Oeste");
+			direcao = leitor.nextInt();
+			switch (direcao) {
 			case 1:
 				System.out.println("1 - Norte");
-				tentenovamente=false;
+				posicaoy=posicaoy+1;
+				if(posicaoy>10||posicaoy<0) {
+					System.out.println("impossivel andar mais nesta direcao");
+					tentenovamente=true;
+				}else {
+					tentenovamente = false;
+				}
 				break;
 			case 2:
 				System.out.println("2 - Sul");
-				tentenovamente=false;
+				if(posicaoy>10||posicaoy<0) {
+					System.out.println("impossivel andar mais nesta direcao");
+					tentenovamente=true;
+				}else {
+					tentenovamente = false;
+				}
 				break;
 			case 3:
 				System.out.println("3 - Leste");
-				tentenovamente=false;
+				if(posicaox>10||posicaox<0) {
+					System.out.println("impossivel andar mais nesta direcao");
+					tentenovamente=true;
+				}else {
+					tentenovamente = false;
+				}
 				break;
 			case 4:
 				System.out.println("4 - Oeste");
-				tentenovamente=false;
+				if(posicaox>10||posicaox<0) {
+					System.out.println("impossivel andar mais nesta direcao");
+					tentenovamente=true;
+				}else {
+					tentenovamente = false;
+				}
 				break;
-				default:
-					System.out.println("comando nao reconhecido, tente novamnete");
+			default:
+				System.out.println("comando nao reconhecido, tente novamnete");
 			}
-			
+
 		}
+
+	}
+
+	public void gatilhomapa(Map m) {
+		
+		
+		m=m.mundo[posicaox][posicaoy];
 		
 		
 		

@@ -1,9 +1,11 @@
 package Mapa;
 
-public class Terreno {
+public class Terreno extends Map{
 	
-	double x,y;
-	double movimentodificil;
-	double chuvaneve;
+	public String tipo=new String();
+	
+	public Terreno() {
+		this.tipo=tipo;
+	}
 
 }

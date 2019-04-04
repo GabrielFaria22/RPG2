@@ -2,6 +2,7 @@ package play;
 
 import java.util.Scanner;
 
+import Mapa.Map;
 import Personagens.Bandido;
 import Personagens.Principal;
 import play.Char;
@@ -12,7 +13,7 @@ public class App {
 		
 
 		Scanner leitor = new Scanner(System.in);
-
+		Map londrina=new Map();
 		Principal player = new Principal();
 		Bandido bandido1 = new Bandido();
 		player.fichadopersonagem();
@@ -22,8 +23,10 @@ public class App {
 		
 		player.luta(bandido1);
 		Thread.sleep(1000);
-		
 		player.anda();
+		
+		londrina.criarmapa();
+		player.gatilhomapa(londrina);
 
 	}
 }
